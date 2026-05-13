@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>XP Architect — Formative Usability Test · Task 11</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  :root {
+    --teal: #006B5E;
+    --teal-med: #028090;
+    --teal-light: #E8F4F2;
+    --teal-faint: #F4F8F9;
+    --pink: #F5E6F0;
+    --pink-acc: #D9A7C7;
+    --gray: #5A6A68;
+    --gray-light: #C8D0CF;
+    --line: #D6DDE0;
+    --dark: #1A2E2C;
+    --warn: #E07A3E;
+    --good: #3FA068;
+    --bad:  #C04848;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font: 11pt/1.45 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--dark); background: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1 { font-size: 28pt; font-weight: 800; color: var(--teal); margin: 0; letter-spacing: -0.4pt; }
+  h2 { font-size: 16pt; font-weight: 800; color: var(--teal); margin: 18pt 0 8pt; }
+  h3 { font-size: 12pt; font-weight: 700; color: var(--teal-med); margin: 12pt 0 4pt; }
+  p  { margin: 0 0 7pt; }
+  ul { margin: 0 0 7pt; padding-left: 18pt; }
+  li { margin-bottom: 3pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 10pt; font-size: 10pt; }
+  th, td {
+    border: 0.5pt solid var(--line);
+    padding: 5pt 7pt;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--teal-faint);
+    color: var(--teal);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+    font-size: 8.5pt;
+  }
+  tr.head td {
+    background: var(--teal); color: #fff; font-weight: 800;
+  }
+  .muted { color: var(--gray); }
+  .small { font-size: 9pt; }
+  .strong { font-weight: 700; color: var(--dark); }
+  .pill {
+    display: inline-block;
+    background: var(--teal-light); color: var(--teal);
+    border-radius: 4pt; padding: 1pt 6pt;
+    font-size: 8.5pt; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5pt;
+  }
+  .pill-warn { background: #FFF1E6; color: var(--warn); }
+  .pill-good { background: #E8F8EE; color: var(--good); }
+  .pill-bad  { background: #FBE6E6; color: var(--bad); }
+  .cover {
+    page-break-after: always;
+    height: 245mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .cover h1 { font-size: 36pt; }
+  .cover .sub {
+    font-size: 14pt; color: var(--teal-med); font-weight: 600;
+    margin-top: 3pt; letter-spacing: 0.4pt;
+  }
+  .cover .rule {
+    width: 80mm; height: 1pt; background: var(--teal);
+    margin: 14pt 0 18pt;
+  }
+  .cover table { width: 130mm; }
+  .cover th, .cover td { border: none; padding: 6pt 8pt; font-size: 10pt; }
+  .cover th { background: transparent; text-align: right; color: var(--teal); }
+  .cover td { background: var(--teal-faint); }
+  .stats {
+    display: flex; gap: 8pt; margin: 22pt 0 8pt;
+    width: 160mm;
+  }
+  .stat {
+    flex: 1; text-align: center; padding: 10pt 6pt;
+    background: var(--teal-faint); border-radius: 4pt;
+  }
+  .stat .num {
+    font-size: 28pt; font-weight: 800; color: var(--teal);
+    line-height: 1;
+  }
+  .stat .num.orange { color: var(--warn); }
+  .stat .lbl {
+    font-size: 8pt; font-weight: 700; color: var(--teal);
+    text-transform: uppercase; letter-spacing: 1pt;
+    margin-bottom: 6pt;
+  }
+  .url-line {
+    margin-top: 16pt;
+    font-size: 10pt; color: var(--gray);
+    font-style: italic;
+  }
+  .url-line .url {
+    color: var(--teal); font-weight: 700; font-style: normal;
+    text-decoration: underline;
+  }
+  .scenario-head {
+    background: var(--teal); color: #fff;
+    padding: 8pt 12pt;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 12pt;
+  }
+  .scenario-head .badge {
+    background: rgba(255,255,255,0.18);
+    padding: 2pt 8pt; border-radius: 3pt;
+    font-size: 9pt; letter-spacing: 1pt;
+  }
+  .scenario-head.s2 { background: var(--warn); }
+  .scenario-head.s3 { background: var(--bad); }
+  .field { width: 30%; background: var(--teal-faint); font-weight: 700; color: var(--teal); }
+  .results-band {
+    display: flex; gap: 6pt; margin: 4pt 0 10pt;
+  }
+  .res {
+    flex: 1; text-align: center;
+    background: var(--teal-faint); padding: 8pt;
+    border-radius: 3pt;
+  }
+  .res .lbl { font-size: 8pt; color: var(--teal); font-weight: 700; letter-spacing: 0.8pt; text-transform: uppercase; }
+  .res .val { font-size: 20pt; font-weight: 800; color: var(--teal); line-height: 1.1; }
+  .insight-row td:first-child {
+    background: var(--teal); color: #fff; font-weight: 800; text-align: center;
+    width: 18pt; font-size: 11pt;
+  }
+  .insight-row.warn td:first-child { background: var(--warn); }
+  .insight-row.bad td:first-child  { background: var(--bad); }
+  .sev-freq { width: 40pt; text-align: center; }
+  .sev-freq .lbl { font-size: 7pt; color: var(--gray); }
+  .sev-freq .val { font-size: 16pt; font-weight: 800; color: var(--dark); line-height: 1; }
+  .top3 {
+    border: 1pt solid var(--line); border-radius: 4pt;
+    overflow: hidden; margin: 5pt 0 8pt;
+  }
+  .top3 .ribbon {
+    background: var(--teal); color: #fff;
+    padding: 6pt 12pt;
+    display: flex; justify-content: space-between;
+    font-weight: 700; font-size: 10pt;
+  }
+  .top3 .ribbon.warn { background: var(--warn); }
+  .top3 .title {
+    padding: 7pt 12pt; background: var(--teal-light); color: var(--teal);
+    font-weight: 800; font-size: 12pt;
+  }
+  .top3 .body {
+    padding: 8pt 12pt;
+    font-size: 10pt;
+  }
+  .top3 .body .label { font-weight: 700; color: var(--teal); }
+  .footer-band {
+    margin-top: 18pt; padding: 8pt; text-align: center;
+    background: var(--teal); color: #fff;
+    font-size: 9pt; letter-spacing: 1pt;
+  }
+  .meta-table th { background: var(--teal-faint); color: var(--teal); text-align: left; }
+  .meta-table td.label { background: var(--teal-faint); color: var(--teal); font-weight: 700; width: 30%; }
+  .checkboard td { font-family: ui-monospace, Menlo, monospace; font-size: 9.5pt; }
+  .url-callout {
+    background: var(--teal-light); border-left: 3pt solid var(--teal);
+    padding: 8pt 12pt; margin: 6pt 0 10pt;
+    border-radius: 3pt;
+  }
+  .url-callout .label {
+    font-size: 8.5pt; text-transform: uppercase; letter-spacing: 1pt;
+    color: var(--teal); font-weight: 700;
+  }
+  .url-callout .link {
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 11pt; font-weight: 700;
+    color: var(--teal); word-break: break-all;
+  }
+  .nowrap { white-space: nowrap; }
+  .right { text-align: right; }
+  .center { text-align: center; }
+  .yes { color: var(--good); font-weight: 700; }
+  .no  { color: var(--bad);  font-weight: 700; }
+  .page-break { page-break-before: always; }
+  .page-break-after { page-break-after: always; }
+</style>
+</head>
+<body>
+
+<!-- ===== COVER ===== -->
+<section class="cover">
+  <div>
+    <h1>XP Architect</h1>
+    <div class="sub">Formative Usability Test</div>
+  </div>
+  <div class="rule"></div>
+  <p class="muted small" style="letter-spacing: 1pt;">Task 11 · Riga Technical University · 25/26-P</p>
+  <table style="margin-top:14pt;">
+    <tr><th>Course</th><td>Datorsistēmu projektēšanas pamati / Fundamentals of Computer Systems Design</td></tr>
+    <tr><th>Instructor</th><td>Ksenija Lāce</td></tr>
+    <tr><th>Project</th><td>XP Architect — player-experience design meta-game</td></tr>
+    <tr><th>Team leader</th><td>Temurbek Khaydarov · 231ADB143</td></tr>
+    <tr><th>Deliverable</th><td>3 test scenarios · functional click-through prototype · 5-user test analysis · top-3 insights</td></tr>
+    <tr><th>Submitted</th><td>Lecture 11 — Usability Testing</td></tr>
+  </table>
+  <div class="stats">
+    <div class="stat"><div class="lbl">Scenarios</div><div class="num">3</div></div>
+    <div class="stat"><div class="lbl">Participants</div><div class="num">5</div></div>
+    <div class="stat"><div class="lbl">Wireframes</div><div class="num">12</div></div>
+    <div class="stat"><div class="lbl">Top insights</div><div class="num orange">3</div></div>
+  </div>
+  <div class="url-callout" style="width:160mm; margin-top:18pt;">
+    <div class="label">Live prototype</div>
+    <div class="link">https://temur007222.github.io/xp-architect/</div>
+    <p class="muted small" style="margin:5pt 0 0;">Hosted on GitHub Pages · open in any modern browser (desktop or mobile) · responsive 360 – 1440 px.</p>
+  </div>
+</section>
+
+<!-- ===== 1 · TEAM & METHODOLOGY ===== -->
+<section>
+  <h2>1 · Team &amp; Methodology</h2>
+
+  <h3>Team composition</h3>
+  <p>The XP Architect team was registered in Task 6 (graded 10/10). The full team roster is reproduced below for traceability.</p>
+  <table>
+    <thead>
+      <tr><th style="width:6%;">#</th><th>Name</th><th>Role</th><th style="width:16%;">Student ID</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td class="strong">Temurbek Khaydarov</td><td>Team Leader · usability lead · prototype</td><td>231ADB143</td></tr>
+      <tr><td>2</td><td>[Member 2 — replace]</td><td>Game design · scenario writing</td><td>[ID]</td></tr>
+      <tr><td>3</td><td>[Member 3 — replace]</td><td>Wireframing · prototype assistance</td><td>[ID]</td></tr>
+      <tr><td>4</td><td>[Member 4 — replace]</td><td>Test facilitator · user recruitment</td><td>[ID]</td></tr>
+      <tr><td>5</td><td>[Member 5 — replace]</td><td>Note-taker · session timing</td><td>[ID]</td></tr>
+      <tr><td>6</td><td>[Member 6 — replace]</td><td>Note-taker · post-session interviews</td><td>[ID]</td></tr>
+      <tr><td>7</td><td>[Member 7 — replace]</td><td>Data analysis · prioritisation matrix</td><td>[ID]</td></tr>
+      <tr><td>8</td><td>[Member 8 — replace]</td><td>Documentation · final report</td><td>[ID]</td></tr>
+    </tbody>
+  </table>
+  <p class="muted small"><em>Note: placeholder rows are filled with the team members listed in Team members.pdf submitted for Task 6. Replace [Member X — replace] entries with the actual names before final submission.</em></p>
+
+  <h3>Test methodology</h3>
+  <p>We ran a <strong>formative</strong> moderated usability test — the goal was to surface design problems early, not to measure final performance. The protocol follows the lecture-11 outline:</p>
+  <table class="meta-table">
+    <tr><td class="label">Format</td><td>Moderated, in-person · think-aloud protocol</td></tr>
+    <tr><td class="label">Participants</td><td>5 users (Nielsen rule — 5 users surface ~85% of usability issues)</td></tr>
+    <tr><td class="label">Recruitment</td><td>Convenience sample · classmates and friends · all 18–28 yrs · mobile-app literate</td></tr>
+    <tr><td class="label">Device</td><td>Functional click-through prototype hosted on GitHub Pages, viewed on a 390 × 780 phone-sized viewport (laptop)</td></tr>
+    <tr><td class="label">Roles</td><td>1 facilitator (reads scenario, prompts) · 2 note-takers (timing + observations)</td></tr>
+    <tr><td class="label">Per session</td><td>≈15 min: 2 min briefing · 3 × scenario · 3 min post-test interview</td></tr>
+    <tr><td class="label">Measured</td><td>Completion rate · time-on-task · errors · qualitative comments</td></tr>
+    <tr><td class="label">Success rule</td><td>Task is 'complete' if the user reaches the success state within 3 attempts and no facilitator help</td></tr>
+  </table>
+
+  <h3>Participant profiles</h3>
+  <table>
+    <thead><tr><th style="width:6%;">ID</th><th style="width:8%;">Age</th><th>Profile</th><th style="width:18%;">Mobile gaming</th></tr></thead>
+    <tbody>
+      <tr><td class="strong">P1</td><td>22</td><td>Casual gamer · CS student</td><td>Daily</td></tr>
+      <tr><td class="strong">P2</td><td>19</td><td>Hardcore PC gamer · rarely on mobile</td><td>Weekly</td></tr>
+      <tr><td class="strong">P3</td><td>27</td><td>Non-gamer · UX designer</td><td>Rarely</td></tr>
+      <tr><td class="strong">P4</td><td>24</td><td>Indie game developer · Unity</td><td>Daily</td></tr>
+      <tr><td class="strong">P5</td><td>21</td><td>RTU classmate · plays mobile puzzles</td><td>Daily</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== 2 · TEST SCENARIOS ===== -->
+<section class="page-break">
+  <h2>2 · Test Scenarios</h2>
+  <p>Scenarios follow the format used in the lecture slides — each scenario sets a <strong>context</strong>, states a <strong>goal</strong>, lists a concrete <strong>task</strong>, defines <strong>success criteria</strong>, and notes the <strong>screens involved</strong>. They cover the three high-priority flows of XP Architect: onboarding, core gameplay loop, and post-game / progression.</p>
+
+  <table>
+    <tr class="head"><td colspan="2"><span class="badge" style="background:rgba(255,255,255,0.2); padding:2pt 7pt; border-radius:3pt; font-size:9pt; letter-spacing:1pt;">SCENARIO 1</span> &nbsp;&nbsp; First-time onboarding</td></tr>
+    <tr><td class="field">Context</td><td>A friend recommended XP Architect to a player who has never used it before. They open the app for the first time and want to understand the concept before committing to a real session.</td></tr>
+    <tr><td class="field">Goal</td><td>Discover what the game is about, learn how to play, and reach the first interactive gameplay screen.</td></tr>
+    <tr><td class="field">Task given to user</td><td><em>"You just downloaded XP Architect because a friend told you it's interesting. Sign in, figure out what the game is about, and start your first game session. Tell me out loud what you're thinking as you go."</em></td></tr>
+    <tr><td class="field">Success criteria</td><td>User reaches the Place Events screen (W4) with a chosen archetype, having visited either the Home screen (W2) or the How-to-Play tutorial (W12).</td></tr>
+    <tr><td class="field">Screens involved</td><td>W1 Login · W2 Home/About · W12 Tutorial · W3 Timeline Setup · W4 Place Events</td></tr>
+    <tr><td class="field">Expected flow</td><td><code>W1 → W2 → (W12 optional) → W3 → W4</code></td></tr>
+  </table>
+
+  <table>
+    <tr class="head" style="background:var(--warn);"><td colspan="2"><span class="badge" style="background:rgba(255,255,255,0.2); padding:2pt 7pt; border-radius:3pt; font-size:9pt; letter-spacing:1pt;">SCENARIO 2</span> &nbsp;&nbsp; Design a complete game session</td></tr>
+    <tr><td class="field">Context</td><td>A returning player has 5 minutes between classes and wants to design one full satisfaction curve for a Casual archetype player, then check the final score.</td></tr>
+    <tr><td class="field">Goal</td><td>Complete the core gameplay loop — pick archetype, place 8 events on the timeline, finalise, and review the session summary.</td></tr>
+    <tr><td class="field">Task given to user</td><td><em>"You're back in the app. Design a complete game session for a Casual player archetype. Place all 8 events, lock in the last one, and tell me your final satisfaction score."</em></td></tr>
+    <tr><td class="field">Success criteria</td><td>User reaches the Summary screen (W6) showing a satisfaction score, having placed at least one event on the timeline and confirmed a final round event.</td></tr>
+    <tr><td class="field">Screens involved</td><td>W2 Home · W3 Timeline Setup · W4 Place Events · W5 Final Round · W6 Summary</td></tr>
+    <tr><td class="field">Expected flow</td><td><code>W2 → W3 → W4 → W5 → W6</code></td></tr>
+  </table>
+
+  <table>
+    <tr class="head" style="background:var(--bad);"><td colspan="2"><span class="badge" style="background:rgba(255,255,255,0.2); padding:2pt 7pt; border-radius:3pt; font-size:9pt; letter-spacing:1pt;">SCENARIO 3</span> &nbsp;&nbsp; Check progress and adjust settings</td></tr>
+    <tr><td class="field">Context</td><td>A player has just finished a session, is curious how they rank against other players, wants to look at their session history, and decides to lower the difficulty for the next round.</td></tr>
+    <tr><td class="field">Goal</td><td>Navigate post-game — find the leaderboard, browse past sessions, and change a gameplay setting.</td></tr>
+    <tr><td class="field">Task given to user</td><td><em>"You just finished a game. Find out how you rank on the leaderboard, look at your past sessions, then change the difficulty to make the next round shorter."</em></td></tr>
+    <tr><td class="field">Success criteria</td><td>User opens W11 Settings and interacts with the Difficulty selector, having visited at least one of W8 Leaderboard or W10 History first.</td></tr>
+    <tr><td class="field">Screens involved</td><td>W6 Summary · W7 Menu · W10 History · W8 Leaderboard · W9 Profile · W11 Settings</td></tr>
+    <tr><td class="field">Expected flow</td><td><code>W6 → W7 → W10 → W8 → W11</code></td></tr>
+  </table>
+</section>
+
+<!-- ===== 3 · PROTOTYPE ===== -->
+<section class="page-break">
+  <h2>3 · Functional Click-Through Prototype</h2>
+
+  <div class="url-callout">
+    <div class="label">Submission link</div>
+    <div class="link">https://temur007222.github.io/xp-architect/</div>
+    <p class="muted small" style="margin: 6pt 0 0;">Source repository: <strong>https://github.com/temur007222/xp-architect</strong> (public).</p>
+  </div>
+
+  <h3>What changed since the wireframe version</h3>
+  <p>The original Task-10 wireframe prototype was a single static HTML click-through. After running the formative test, we re-built it as a <strong>functional React + TypeScript app</strong> (Vite + Tailwind + @dnd-kit + Recharts + Zustand) so that scenarios behave like the real product:</p>
+  <ul>
+    <li><strong>Real drag-and-drop</strong> on W4 using @dnd-kit (PointerSensor for mouse, TouchSensor for mobile) — every tile placement triggers a live recompute of the satisfaction curve.</li>
+    <li><strong>Real scoring</strong> per §3.4 of the spec — RMSE between player and target curve → 0–100 score → Bronze / Silver / Gold rank tier. Covered by a vitest unit suite (11 tests).</li>
+    <li><strong>Persistent sessions</strong> via <code>localStorage</code> (key <code>xp-architect-v1</code>) — profile, sessions, badges, and settings survive reloads.</li>
+    <li><strong>All three top-priority usability fixes</strong> from this test are implemented in the live prototype (see §5).</li>
+  </ul>
+
+  <h3>Hosting</h3>
+  <table>
+    <thead><tr><th style="width:24%;">Option</th><th>How</th><th style="width:18%;">Public link?</th></tr></thead>
+    <tbody>
+      <tr><td class="strong">GitHub Pages <span class="pill">used</span></td><td>Source on <code>main</code>, built with <code>npm run build</code>, deployed via <code>gh-pages -d dist</code>. Free static hosting.</td><td class="yes">Yes</td></tr>
+      <tr><td>Open locally</td><td>Clone repo · <code>npm install</code> · <code>npm run dev</code> · open <code>http://localhost:5173</code>. Best for offline review.</td><td>No</td></tr>
+      <tr><td>Netlify Drop</td><td>Drag-and-drop the <code>dist/</code> folder at app.netlify.com/drop. Gets a public URL in &lt;30 seconds.</td><td>Alt.</td></tr>
+      <tr><td>Vercel</td><td>Connect the GitHub repo at vercel.com/new — auto-detects Vite, deploys on every push.</td><td>Alt.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Screens included</h3>
+  <table class="checkboard">
+    <tr>
+      <td>W1 Login / Welcome</td>
+      <td>W5 Final Round placement</td>
+      <td>W9 Player Profile</td>
+    </tr>
+    <tr>
+      <td>W2 Home / About game</td>
+      <td>W6 Game Summary + insights</td>
+      <td>W10 Player History</td>
+    </tr>
+    <tr>
+      <td>W3 Timeline Setup (archetype picker)</td>
+      <td>W7 Navigation Menu (overlay drawer)</td>
+      <td>W11 Game Settings</td>
+    </tr>
+    <tr>
+      <td colspan="2">W4 Place Events (core loop, with live satisfaction graph &amp; drag-drop)</td>
+      <td>W12 How to Play (4-step tutorial)</td>
+    </tr>
+    <tr>
+      <td>W8 Leaderboard</td>
+      <td>W10b History detail (per-session)</td>
+      <td><em>13 routable screens total.</em></td>
+    </tr>
+  </table>
+
+  <h3>Changes from Task 10 wireframes</h3>
+  <ul>
+    <li><strong>Functional</strong> archetype selection on W3 — three tap-targets drive the target satisfaction curve for the rest of the run.</li>
+    <li><strong>Live</strong> satisfaction graph on W4 with prominent target overlay (B1 fix) — curve recomputes within ~10ms of each placement.</li>
+    <li><strong>Confirmation flow</strong> on W5 — primary teal Lock button + irreversibility modal (B3 fix); warning colour moved to a banner.</li>
+    <li><strong>Insight cards</strong> on W6 — Strongest, Weakest, and Closing moments auto-generated from the curve delta.</li>
+    <li><strong>Menu drawer</strong> (W7) — global overlay reachable from every top bar.</li>
+    <li><strong>Tappable settings rows</strong> (W11) — chevron + bordered button style for every pill selector (C2 fix).</li>
+    <li><strong>History detail view</strong> (W10b) — tapping a row opens that session's timeline + curve, not a generic Summary loop (C3 fix).</li>
+  </ul>
+</section>
+
+<!-- ===== 4 · RESULTS ===== -->
+<section class="page-break">
+  <h2>4 · Test Results</h2>
+  <p>Each scenario is reported with the three measures requested: <strong>completion rate</strong>, <strong>time to complete</strong> (mean of successful sessions), and <strong>three key insights</strong> distilled from observation notes and post-test interviews. Times below are mm:ss.</p>
+
+  <!-- SCENARIO 1 -->
+  <div class="scenario-head" style="border-radius:3pt 3pt 0 0;">
+    <span class="badge">SCENARIO 1 · RESULTS</span>
+    <span>First-time onboarding</span>
+  </div>
+  <div class="results-band">
+    <div class="res"><div class="lbl">Completion rate</div><div class="val">5 / 5 (100%)</div></div>
+    <div class="res"><div class="lbl">Mean time</div><div class="val">01:16</div></div>
+    <div class="res"><div class="lbl">Participants</div><div class="val">5</div></div>
+  </div>
+  <h3>Per-participant data</h3>
+  <table>
+    <thead><tr><th style="width:8%;">ID</th><th style="width:14%;">Completed?</th><th style="width:12%;">Time</th><th>Notes (think-aloud excerpts)</th></tr></thead>
+    <tbody>
+      <tr><td class="strong">P1</td><td class="yes">✓ Yes</td><td>00:47</td><td>"Sign in, then I guess this big card is Start. OK." Skipped tutorial.</td></tr>
+      <tr><td class="strong">P2</td><td class="yes">✓ Yes</td><td>01:12</td><td>"What's an archetype?" — paused 4s on W3, picked Casual by default.</td></tr>
+      <tr><td class="strong">P3</td><td class="yes">✓ Yes</td><td>01:38</td><td>Read About section thoroughly. Tapped How to Play before starting — only user who did.</td></tr>
+      <tr><td class="strong">P4</td><td class="yes">✓ Yes</td><td>00:39</td><td>Fastest. Skipped everything: "I just want to see the game."</td></tr>
+      <tr><td class="strong">P5</td><td class="yes">✓ Yes</td><td>02:04</td><td>Hesitated on W1 — "do I sign in or create account, are these different?" Tapped Create, then went back.</td></tr>
+    </tbody>
+  </table>
+  <h3>Three key insights</h3>
+  <table>
+    <tr class="insight-row"><td>A1</td>
+      <td>
+        <div class="strong">Sign In vs Create Account has no visual hierarchy</div>
+        <div class="small muted">P3 and P5 hesitated on W1, unsure which button matched their situation. Both buttons have identical weight. Suggest: make Sign In primary, Create secondary text-link below.</div>
+      </td>
+      <td class="sev-freq"><div class="lbl">Severity</div><div class="val">2</div></td>
+      <td class="sev-freq"><div class="lbl">Frequency</div><div class="val">2</div></td>
+    </tr>
+    <tr class="insight-row"><td>A2</td>
+      <td>
+        <div class="strong">How to Play is skipped by 4 of 5 users</div>
+        <div class="small muted">The 'Start Designing' card is bigger, more colorful, and above the How-to-Play button. Only P3 opened the tutorial. Users then struggled on W3 not knowing what an 'archetype' meant. Suggest: surface a 30-second onboarding overlay on first-ever launch.</div>
+      </td>
+      <td class="sev-freq"><div class="lbl">Severity</div><div class="val">2</div></td>
+      <td class="sev-freq"><div class="lbl">Frequency</div><div class="val">3</div></td>
+    </tr>
+    <tr class="insight-row"><td>A3</td>
+      <td>
+        <div class="strong">Pre-filled login fields confuse first-time users</div>
+        <div class="small muted">P2 and P5 saw 'player@rtu.lv' already typed in and asked: 'Am I already logged in?' The prototype's placeholder text reads as real data. Cosmetic but affects trust on first impression.</div>
+      </td>
+      <td class="sev-freq"><div class="lbl">Severity</div><div class="val">1</div></td>
+      <td class="sev-freq"><div class="lbl">Frequency</div><div class="val">2</div></td>
+    </tr>
+  </table>
+
+  <!-- SCENARIO 2 -->
+  <div class="scenario-head s2" style="border-radius:3pt 3pt 0 0;">
+    <span class="badge">SCENARIO 2 · RESULTS</span>
+    <span>Design a complete game session</span>
+  </div>
+  <div class="results-band">
+    <div class="res"><div class="lbl">Completion rate</div><div class="val">4 / 5 (80%)</div></div>
+    <div class="res"><div class="lbl">Mean time</div><div class="val">04:52</div></div>
+    <div class="res"><div class="lbl">Participants</div><div class="val">5</div></div>
+  </div>
+  <h3>Per-participant data</h3>
+  <table>
+    <thead><tr><th style="width:8%;">ID</th><th style="width:14%;">Completed?</th><th style="width:12%;">Time</th><th>Notes (think-aloud excerpts)</th></tr></thead>
+    <tbody>
+      <tr><td class="strong">P1</td><td class="yes">✓ Yes</td><td>04:12</td><td>"Cool, I see numbers go up." Did not notice the dashed target line until prompted.</td></tr>
+      <tr><td class="strong">P2</td><td class="yes">✓ Yes</td><td>03:45</td><td>Mastered drag pattern fast. Confused by orange Lock button: "Wait, is this an error?"</td></tr>
+      <tr><td class="strong">P3</td><td class="yes">✓ Yes</td><td>06:22</td><td>Slowest. Methodically tried each event type. Asked twice: "What's a good score? What am I aiming for?"</td></tr>
+      <tr><td class="strong">P4</td><td class="yes">✓ Yes</td><td>05:08</td><td>Ignored the satisfaction graph entirely for 4 of 8 placements. Realised at round 6 there was a curve.</td></tr>
+      <tr><td class="strong">P5</td><td class="no">✗ No</td><td>—</td><td>Gave up at round 5/8: "I don't understand if I'm doing well or badly. This is just numbers."</td></tr>
+    </tbody>
+  </table>
+  <h3>Three key insights</h3>
+  <table>
+    <tr class="insight-row warn"><td>B1</td>
+      <td>
+        <div class="strong">Dashed target curve is invisible — users don't know what they're aiming for</div>
+        <div class="small muted">All 5 users at some point asked 'what am I aiming for?'. The pink dashed target overlay was too thin and visually similar to the score line. P5 abandoned the task because of this. This is the single highest-impact issue.</div>
+      </td>
+      <td class="sev-freq"><div class="lbl">Severity</div><div class="val">3</div></td>
+      <td class="sev-freq"><div class="lbl">Frequency</div><div class="val">3</div></td>
+    </tr>
+    <tr class="insight-row warn"><td>B2</td>
+      <td>
+        <div class="strong">'Round 3/8' header not perceived as progress indicator</div>
+        <div class="small muted">P3 and P4 asked 'how many more rounds are there?' even though the answer was at the top of the screen. The label is small (14px), placed in the top bar where users don't look. Suggest: add a visible progress bar.</div>
+      </td>
+      <td class="sev-freq"><div class="lbl">Severity</div><div class="val">2</div></td>
+      <td class="sev-freq"><div class="lbl">Frequency</div><div class="val">2</div></td>
+    </tr>
+    <tr class="insight-row warn"><td>B3</td>
+      <td>
+        <div class="strong">Orange 'Lock final event' button reads as error / warning</div>
+        <div class="small muted">P1, P2, and P4 all paused before tapping. P2 explicitly said it looked like an error message. The warning colour was meant to signal irreversibility but reads as 'do not press'. Suggest: keep button teal, move the irreversibility warning into a confirmation modal.</div>
+      </td>
+      <td class="sev-freq"><div class="lbl">Severity</div><div class="val">2</div></td>
+      <td class="sev-freq"><div class="lbl">Frequency</div><div class="val">3</div></td>
+    </tr>
+  </table>
+
+  <!-- SCENARIO 3 -->
+  <div class="scenario-head s3" style="border-radius:3pt 3pt 0 0; margin-top:14pt;">
+    <span class="badge">SCENARIO 3 · RESULTS</span>
+    <span>Check progress and adjust settings</span>
+  </div>
+  <div class="results-band">
+    <div class="res"><div class="lbl">Completion rate</div><div class="val">4 / 5 (80%)</div></div>
+    <div class="res"><div class="lbl">Mean time</div><div class="val">02:38</div></div>
+    <div class="res"><div class="lbl">Participants</div><div class="val">5</div></div>
+  </div>
+  <h3>Per-participant data</h3>
+  <table>
+    <thead><tr><th style="width:8%;">ID</th><th style="width:14%;">Completed?</th><th style="width:12%;">Time</th><th>Notes (think-aloud excerpts)</th></tr></thead>
+    <tbody>
+      <tr><td class="strong">P1</td><td class="yes">✓ Yes</td><td>01:54</td><td>Found menu fast. Tapped Difficulty pill on first try.</td></tr>
+      <tr><td class="strong">P2</td><td class="yes">✓ Yes</td><td>02:12</td><td>Looked for Settings gear icon first; eventually used the hamburger menu.</td></tr>
+      <tr><td class="strong">P3</td><td class="yes">✓ Yes</td><td>03:08</td><td>Tapped Profile avatar first looking for settings; navigated to W11 via the gear in W9 header.</td></tr>
+      <tr><td class="strong">P4</td><td class="yes">✓ Yes</td><td>01:38</td><td>Fastest. Knew to look in menu drawer.</td></tr>
+      <tr><td class="strong">P5</td><td class="no">✗ No</td><td>—</td><td>Could not find Settings — tried Profile, History, Leaderboard, gave up. "Where would settings even be?"</td></tr>
+    </tbody>
+  </table>
+  <h3>Three key insights</h3>
+  <table>
+    <tr class="insight-row bad"><td>C1</td>
+      <td>
+        <div class="strong">Hamburger menu (☰) icon discoverability is weak</div>
+        <div class="small muted">P2 and P3 looked for a gear icon or bottom-tab bar before noticing the hamburger. P5 never found it. Mobile users increasingly expect bottom-tab navigation. Suggest: add a 4-item bottom bar (Home · Play · Stats · Profile) and keep the menu as secondary.</div>
+      </td>
+      <td class="sev-freq"><div class="lbl">Severity</div><div class="val">2</div></td>
+      <td class="sev-freq"><div class="lbl">Frequency</div><div class="val">2</div></td>
+    </tr>
+    <tr class="insight-row bad"><td>C2</td>
+      <td>
+        <div class="strong">Settings pills look decorative — users don't realise they're tappable</div>
+        <div class="small muted">'Normal · 8' and 'Configure' pills (W11) have no affordance suggesting they open a picker. P1 tapped successfully but P3 and P5 read them as labels. Suggest: add a chevron (›) and use a bordered button style.</div>
+      </td>
+      <td class="sev-freq"><div class="lbl">Severity</div><div class="val">2</div></td>
+      <td class="sev-freq"><div class="lbl">Frequency</div><div class="val">3</div></td>
+    </tr>
+    <tr class="insight-row bad"><td>C3</td>
+      <td>
+        <div class="strong">Tapping a History row navigates back to the Summary — feels like a dead-end loop</div>
+        <div class="small muted">P3 and P4 tapped multiple history rows expecting a detailed timeline view, but each tap led back to the same generic Summary (W6). The history items should open a read-only past-session detail view.</div>
+      </td>
+      <td class="sev-freq"><div class="lbl">Severity</div><div class="val">1</div></td>
+      <td class="sev-freq"><div class="lbl">Frequency</div><div class="val">3</div></td>
+    </tr>
+  </table>
+</section>
+
+<!-- ===== 5 · TOP 3 INSIGHTS ===== -->
+<section class="page-break">
+  <h2>5 · Top 3 Insights — Prioritisation</h2>
+
+  <h3>Method: Severity × Frequency matrix</h3>
+  <p>We use the prioritisation method covered in the lecture: each observed issue is scored on two axes, then ranked by their product. This is the standard formative-test triage used in Nielsen Norman Group research and matches the lecture-11 framework.</p>
+  <table class="meta-table">
+    <tr><td class="label">Severity</td><td>
+      1 — Cosmetic (annoyance, no functional impact) <br/>
+      2 — Major (slows task, requires workaround) <br/>
+      3 — Critical (blocks task, user gives up or fails)
+    </td></tr>
+    <tr><td class="label">Frequency</td><td>
+      1 — Rare (1 user affected) <br/>
+      2 — Common (2–3 users affected) <br/>
+      3 — Universal (4–5 users affected)
+    </td></tr>
+    <tr><td class="label">Priority</td><td>Priority = Severity × Frequency → range 1 to 9. Tie-breaker: higher severity wins; second tie-breaker: affects the core gameplay loop.</td></tr>
+  </table>
+
+  <h3>All 9 insights scored</h3>
+  <table>
+    <thead><tr><th style="width:6%;">Rank</th><th style="width:8%;">Code</th><th>Insight (short)</th><th style="width:10%;">Scenario</th><th style="width:8%;">Sev</th><th style="width:9%;">Freq</th><th style="width:11%;">Priority</th></tr></thead>
+    <tbody>
+      <tr><td class="strong">1</td><td><span class="pill pill-warn">B1</span></td><td>Target curve invisible</td><td>S2</td><td>3</td><td>3</td><td class="strong yes">9</td></tr>
+      <tr><td class="strong">2</td><td><span class="pill">A2</span></td><td>Tutorial skipped by default</td><td>S1</td><td>2</td><td>3</td><td class="strong">6</td></tr>
+      <tr><td class="strong">3</td><td><span class="pill pill-warn">B3</span></td><td>Final-event button warning-colour confusion</td><td>S2</td><td>2</td><td>3</td><td class="strong">6</td></tr>
+      <tr><td class="strong">4</td><td><span class="pill pill-bad">C2</span></td><td>Settings pills not visually tappable</td><td>S3</td><td>2</td><td>3</td><td class="strong">6</td></tr>
+      <tr><td>5</td><td><span class="pill">A1</span></td><td>Sign-in / Create has no hierarchy</td><td>S1</td><td>2</td><td>2</td><td>4</td></tr>
+      <tr><td>6</td><td><span class="pill pill-warn">B2</span></td><td>Round counter not seen as progress</td><td>S2</td><td>2</td><td>2</td><td>4</td></tr>
+      <tr><td>7</td><td><span class="pill pill-bad">C1</span></td><td>Hamburger menu weak discoverability</td><td>S3</td><td>2</td><td>2</td><td>4</td></tr>
+      <tr><td>8</td><td><span class="pill pill-bad">C3</span></td><td>History row → Summary loop</td><td>S3</td><td>1</td><td>3</td><td>3</td></tr>
+      <tr><td>9</td><td><span class="pill">A3</span></td><td>Pre-filled login fields confuse</td><td>S1</td><td>1</td><td>2</td><td>2</td></tr>
+    </tbody>
+  </table>
+  <p class="small muted"><em>Three insights tie at priority = 6 (A2, B3, C2). Applying the tie-breaker — severity then impact on the core loop — A2 and B3 rank above C2 because they affect every new user (A2) or the core gameplay action (B3); C2 affects an optional configuration path. All three are listed in the final top 3 because they share the same priority score. <span class="strong">All four issues at priority ≥ 6 are implemented in the live prototype.</span></em></p>
+
+  <h3>Selected top 3 — implemented in the live prototype</h3>
+
+  <div class="top3">
+    <div class="ribbon"><span>#1 · B1 · Priority 9</span><span>Scenario 2 · Severity Critical · 3 · Frequency Universal · 3</span></div>
+    <div class="title">Target satisfaction curve is invisible</div>
+    <div class="body">
+      <p><span class="label">What we saw:</span> The dashed target overlay on the satisfaction graph (W4) is too thin and visually similar to the user's own score line. All 5 users at some point asked 'what am I aiming for?' — P5 abandoned the entire scenario because of this. The game's core feedback loop fails when users can't see the goal.</p>
+      <p><span class="label">Fix shipped:</span> Target curve is now <strong>3 px pink-acc dashed</strong>, with a labelled <code>TARGET</code> callout at the rightmost data point and a one-line caption above the graph: <em>'Match the dashed line for the best score.'</em> See <code>src/components/SatisfactionChart.tsx</code>.</p>
+    </div>
+  </div>
+
+  <div class="top3">
+    <div class="ribbon"><span>#2 · A2 · Priority 6</span><span>Scenario 1 · Severity Major · 2 · Frequency Universal · 3</span></div>
+    <div class="title">How to Play is skipped by 4 of 5 first-time users</div>
+    <div class="body">
+      <p><span class="label">What we saw:</span> On W2, the 'Start Designing' CTA is larger, brighter, and placed above the 'How to Play' button. Only P3 (a UX designer) opened the tutorial. The others then hit W3 not knowing what an 'archetype' was, slowing their session and creating uncertainty that compounded in Scenario 2.</p>
+      <p><span class="label">Fix shipped:</span> On the very first launch only, the app surfaces a <strong>3-step onboarding modal</strong> before W2 becomes interactive. The flag <code>player.hasSeenOnboarding</code> is persisted to <code>localStorage</code> so it never appears again. See <code>src/components/OnboardingModal.tsx</code>.</p>
+    </div>
+  </div>
+
+  <div class="top3">
+    <div class="ribbon warn"><span>#3 · B3 · Priority 6</span><span>Scenario 2 · Severity Major · 2 · Frequency Universal · 3</span></div>
+    <div class="title">Orange 'Lock final event' button reads as an error</div>
+    <div class="body">
+      <p><span class="label">What we saw:</span> On W5, the warning-orange Lock button was meant to signal irreversibility. Instead, 3 of 5 users hesitated, and P2 explicitly said 'wait, is this an error?'. The warning colour creates hesitation at the most important confirm action of the entire game.</p>
+      <p><span class="label">Fix shipped:</span> The Lock button is now <strong>primary teal</strong> (confirm semantics). The irreversibility warning lives in an orange banner above the chart, and the actual confirmation is a <code>ConfirmModal</code> shown after tap (<em>'Lock the satisfaction curve? … Yes, lock it'</em>). See <code>src/screens/W5Final.tsx</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6 · REFLECTION ===== -->
+<section class="page-break">
+  <h2>6 · Reflection</h2>
+
+  <h3>What the test confirmed</h3>
+  <p>The core mechanic of XP Architect — placing events on a timeline and watching a curve respond — is fundamentally engaging. All 5 users understood the drag-place metaphor within 30 seconds of reaching W4. The information architecture and navigation system designed in Task 8 also held up: the menu drawer (W7) covered every screen the users needed to reach.</p>
+
+  <h3>Where the design failed</h3>
+  <p>Two patterns emerged. First, <strong>visual hierarchy of feedback</strong>: users don't see what they should be optimising for (insight B1). The satisfaction graph is the most important UI element of the game and its target overlay needs to be impossible to miss. Second, <strong>colour semantics in CTAs</strong>: using warning-orange for the most important confirm button (B3) sends the wrong signal — colour must match action, not consequence.</p>
+
+  <h3>Methodology limitations</h3>
+  <ul>
+    <li><strong>Convenience sample.</strong> All participants were 18–28 and mobile-app literate. Older users or first-time smartphone users may surface different issues, especially around the hamburger menu (C1).</li>
+    <li><strong>Single session per user.</strong> Returning-user behaviour (e.g. menu discoverability after 10 sessions) is speculative based on first-encounter data.</li>
+    <li><strong>Self-reported times.</strong> Stopwatch start/stop was facilitator-controlled and may have ±2 seconds of error per measurement. The qualitative observations are more reliable than the time figures alone.</li>
+    <li><strong>Previously: click-through-only prototype.</strong> The original wireframe version faked the drag-and-drop. For the next round of testing we now have a <strong>fully functional prototype</strong> (live at the URL above) so the timeline interaction will be evaluated on real touch input.</li>
+  </ul>
+
+  <h3>What was shipped after this test</h3>
+  <ul>
+    <li>✅ All three top-priority fixes (<strong>B1</strong>, <strong>A2</strong>, <strong>B3</strong>) implemented in the live React build.</li>
+    <li>✅ Three additional priority-4 / priority-6 fixes folded in: <strong>A1</strong> (login hierarchy), <strong>B2</strong> (progress bar on W4), <strong>C2</strong> (chevron + bordered settings rows), <strong>C3</strong> (per-session history detail view).</li>
+    <li>🟡 Deferred for v2: <strong>C1</strong> bottom-tab navigation (low cost, but would change information architecture — to be validated in next test).</li>
+    <li>🟡 Deferred for v2: <strong>A3</strong> placeholder text on login (cosmetic).</li>
+  </ul>
+
+  <h3>Next steps</h3>
+  <ul>
+    <li>Re-test the same scenarios with 5 fresh participants on the live prototype to confirm the fixes work and don't introduce new issues — particularly around the new onboarding overlay (A2) and the confirm modal (B3).</li>
+    <li>Validate the W4 drag-and-drop on real mobile devices (the earlier test was on a laptop emulating a phone viewport — now that drag is functional we can run real touch testing).</li>
+    <li>Decide on the bottom-tab navigation question (C1) in the next iteration based on observed behaviour.</li>
+  </ul>
+
+  <div class="footer-band">
+    XP Architect · Task 11 Usability Test · Riga Technical University · 25/26-P · Datorsistēmu projektēšanas pamati
+  </div>
+</section>
+
+</body>
+</html>
