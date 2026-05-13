@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    @apply bg-bg text-dark font-sans antialiased;
+    font-size: 13px;
+  }
+  *::-webkit-scrollbar { width: 4px; height: 4px; }
+  *::-webkit-scrollbar-thumb { background: #C8D0CF; border-radius: 2px; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-4 py-[11px] rounded-[10px] bg-teal text-white font-bold text-[13px] inline-flex items-center justify-center gap-1.5 transition-all hover:bg-teal-med active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-outline {
+    @apply px-4 py-[11px] rounded-[10px] bg-transparent text-teal border-[1.5px] border-teal font-bold text-[13px] inline-flex items-center justify-center gap-1.5 transition-all hover:bg-teal-light active:scale-[0.97];
+  }
+  .btn-text {
+    @apply text-teal text-[13px] font-semibold underline-offset-2 hover:underline cursor-pointer bg-transparent border-0;
+  }
+  .input {
+    @apply w-full px-3 py-[11px] border-[1.5px] border-gray-line rounded-[10px] text-[13px] text-dark bg-white focus:outline-none focus:border-teal mb-2.5;
+  }
+  .h1 { @apply text-[22px] font-extrabold text-dark mb-2 tracking-[0.3px]; }
+  .h2 { @apply text-[15px] font-bold text-dark mt-3.5 mb-2; }
+  .lbl { @apply text-[11px] text-gray uppercase tracking-[0.6px] mb-1; }
+  .muted { @apply text-gray text-[11px]; }
+  .card { @apply bg-white rounded-xl border border-gray-line p-3; }
+}
